@@ -1,3 +1,6 @@
+pool:
+  name: MyLocalAgentPool
+
 stages:
   - stage: Stage1
     jobs:
