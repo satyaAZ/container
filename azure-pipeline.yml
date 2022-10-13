@@ -20,3 +20,6 @@ stages:
       displayName: BuildCompleted
   - stage:
     displayName: CopyJob
+    jobs:
+      - job: 
+        displayName: Copying Files
