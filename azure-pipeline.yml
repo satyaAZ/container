@@ -7,3 +7,4 @@ stages:
     - job: Job1
       steps:
       - script: echo "Hello World"
+        displayName: ExecutingScript
