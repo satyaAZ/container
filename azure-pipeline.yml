@@ -3,23 +3,19 @@ pool:
 
 stages:
   - stage:
-    displayName: WelcomeJob
+    displayName: Build
     jobs:
-    - job: Job1
-      steps:
-      - script: echo "Hello World"
-        displayName: ExecutingScript
-  - stage:
-    displayName: BuildJob
-    jobs:
-    - job:
-      displayName: StartBuild
-    - job:
-      displayName: RunningBuild
-    - job:
-      displayName: BuildCompleted
-  - stage:
-    displayName: CopyJob
-    jobs:
-      - job: 
-        displayName: Copying Files
+      - job:
+        displayName: Nuget_Restore
+        steps:
+          - task: NuGetCommand@2
+            inputs:
+              command: 'restore'
+              restoreSolution: '**/*.sln'
+              feedsToUse: 'select'
+          - task: VSBuild@1
+            inputs:
+              solution: '**\*.sln'
+              msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"'
+              platform: '$(BuildPlatform)'
+              configuration: '$(BuildConfiguration)'
