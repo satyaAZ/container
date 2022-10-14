@@ -1,6 +1,10 @@
 pool:
   name: MyLocalAgentPool
 
+variables:
+  BuildConfiguration: "release"
+  BuildPlatform: "any cpu"
+
 stages:
   - stage:
     displayName: Build
