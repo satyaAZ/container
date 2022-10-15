@@ -1,5 +1,5 @@
 pool:
-  name: Sample-parts-self-hosted
+  name: Azure Pipelines
 
 stages:
   - stage: Stage1
