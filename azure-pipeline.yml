@@ -1,5 +1,5 @@
 pool:
-  name: Sample-parts-self-hosted
+  name: Self-hosted_Pool1
 
 stages:
   - stage: Stage1
