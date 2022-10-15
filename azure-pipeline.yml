@@ -1,3 +1,6 @@
+pool:
+  name: Sample-parts-self-hosted
+
 stages:
   - stage: Stage1
     jobs:
