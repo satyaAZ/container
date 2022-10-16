@@ -1,5 +1,5 @@
 pool:
-  name: mylocalagentpool
+  name: mynewagentpool
   
 stages:
   - stage: stage1
