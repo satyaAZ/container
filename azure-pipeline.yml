@@ -1,22 +1,33 @@
 pool:
   name: MyLocalAgentPool
 
+variables:
+  BuildConfiguration: "release"
+  BuildPlatform: "any cpu"
+
 stages:
   - stage:
-    displayName: WelcomeJob
+    displayName: Build
     jobs:
-    - job: Job1
-      steps:
-      - script: echo "Hello World"
-        displayName: ExecutingScript
-  - stage:
-    displayName: BuildJob
-    jobs:
-    - job:
-      displayName: StartBuild
-    - job:
-      displayName: RunningBuild
-    - job:
-      displayName: BuildCompleted
-  - stage:
-    displayName: CopyJob
+      - job:
+        displayName: Build_And_Publish
+        steps:
+          - task: NuGetCommand@2
+            displayName: Nuget_Restore
+            inputs:
+              command: 'restore'
+              restoreSolution: '**/*.sln'
+              feedsToUse: 'select'
+          - task: VSBuild@1
+            displayName: Build_Solution
+            inputs:
+              solution: '**\*.sln'
+              msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"'
+              platform: '$(BuildPlatform)'
+              configuration: '$(BuildConfiguration)'
+          - task: PublishBuildArtifacts@1
+            displayName: Publish_Artifact
+            inputs:
+              PathtoPublish: '$(build.artifactstagingdirectory)'
+              ArtifactName: 'drop'
+              publishLocation: 'Container'
