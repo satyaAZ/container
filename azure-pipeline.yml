@@ -56,6 +56,7 @@ stages:
               workingDirectory: '$(System.DefaultWorkingDirectory)\Automation\Terraform'
               environmentServiceNameAzureRM: 'Pay-As-You-Go(939d0063-f302-41c3-a37b-d6a44a4eb692)'
           - task: TerraformTaskV3@3
+            displayName: Apply
             inputs:
               provider: 'azurerm'
               command: 'apply'
