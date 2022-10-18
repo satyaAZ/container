@@ -42,6 +42,7 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'init'
+              workingDirectory: '$(System.DefaultWorkingDirectory)\Automation\Terraform'
               backendServiceArm: 'Pay-As-You-Go(939d0063-f302-41c3-a37b-d6a44a4eb692)'
               backendAzureRmResourceGroupName: 'SA-TF-BACKENDS'
               backendAzureRmStorageAccountName: 'azb23tfremotebackends'
