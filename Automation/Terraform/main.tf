@@ -68,6 +68,12 @@ resource "azurerm_windows_web_app" "app-01" {
   service_plan_id     = azurerm_service_plan.asp-01.id
 
   site_config {}
+  
+  connection_string {
+    name  = "Parts-database"
+    type  = "SQLServer"
+    value = "Server=tcp:${azurerm_sql_database.sql-db-01.name}.database.windows.net,1433;Initial Catalog=${azurerm_sql_server.sql-server-01.name};Persist Security Info=False;User ID=${azurerm_sql_server.sql-server-01.administrator_login};Password=${azurerm_sql_server.sql-server-01.administrator_login_password};MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  }
 }
 
 resource "azurerm_sql_server" "sql-server-01" {
