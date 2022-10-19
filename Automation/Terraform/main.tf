@@ -69,11 +69,6 @@ resource "azurerm_windows_web_app" "app-01" {
   service_plan_id     = azurerm_service_plan.asp-01.id
 
   site_config {}
-  connection_string {
-    name = "AzureSQL-db-01"
-    type = "SQLAzure"
-    value= ""
-  }
 }
 
 resource "azurerm_sql_server" "sql-server-01" {
