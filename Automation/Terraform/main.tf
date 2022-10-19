@@ -34,8 +34,7 @@ resource "azurerm_virtual_network" "vnet-01" {
   resource_group_name = var.rg_01_name
   address_space       = var.vnet_01_address_space
   depends_on = [
-    module.create-rg-01,
-    module.create-rg-02
+    module.create-rg-01
   ]
 
   subnet {
