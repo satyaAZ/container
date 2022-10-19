@@ -26,12 +26,6 @@ module "create-rg-01" {
   rg_location = var.rg_01_location
   tag_env_name = var.tag_env_name
 }
-module "create-rg-02" {
-  source = "./modules/rg"
-  rg_name = var.rg_02_name
-  rg_location = var.rg_02_location
-  tag_env_name = var.tag_env_name
-}
 
 
 resource "azurerm_virtual_network" "vnet-01" {
@@ -54,6 +48,53 @@ resource "azurerm_virtual_network" "vnet-01" {
     address_prefix = var.subnet2_address_prefix
   }
 
+  tags = {
+    automation  = "terraform"
+    environment = var.tag_env_name
+  }
+}
+
+resource "azurerm_service_plan" "asp-01" {
+  name                = "asp-webapps-01"
+  resource_group_name = var.rg_01_name
+  location            = var.rg_01_location
+  sku_name            = "P1v2"
+  os_type             = "Windows"
+}
+
+resource "azurerm_windows_web_app" "app-01" {
+  name                = "azb23-win-app-01"
+  resource_group_name = var.rg_01_name
+  location            = var.rg_01_location
+  service_plan_id     = azurerm_service_plan.asp-01.id
+
+  site_config {}
+  connection_string {
+    name = "AzureSQL-db-01"
+    type = "SQLAzure"
+    value= ""
+  }
+}
+
+resource "azurerm_sql_server" "sql-server-01" {
+  name                         = "azb23-sql-server-01"
+  resource_group_name = var.rg_01_name
+  location            = var.rg_01_location
+  version                      = "12.0"
+  administrator_login          = "vineel"
+  administrator_login_password = "4-v3ry-53cr37-p455w0rd"
+
+ tags = {
+    automation  = "terraform"
+    environment = var.tag_env_name
+  }
+}
+
+resource "azurerm_sql_database" "sql-db-01" {
+  name                = "azb23-db-01"
+  resource_group_name = var.rg_01_name
+  location            = var.rg_01_location
+  server_name         = azurerm_sql_server.sql-server-01.name
   tags = {
     automation  = "terraform"
     environment = var.tag_env_name
