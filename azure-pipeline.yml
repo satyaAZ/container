@@ -43,7 +43,7 @@ stages:
               provider: 'azurerm'
               command: 'init'
               workingDirectory: '$(System.DefaultWorkingDirectory)\Automation\Terraform'
-              backendServiceArm: 'Pay-As-You-Go(939d0063-f302-41c3-a37b-d6a44a4eb692)'
+              backendServiceArm: 'Free Trial(27871e81-babf-420a-b707-448624c2aa82)'
               backendAzureRmResourceGroupName: 'SA-TF-BACKENDS'
               backendAzureRmStorageAccountName: 'azb23tfremotebackends'
               backendAzureRmContainerName: 'tfremotebackends'
@@ -54,11 +54,11 @@ stages:
               provider: 'azurerm'
               command: 'plan'
               workingDirectory: '$(System.DefaultWorkingDirectory)\Automation\Terraform'
-              environmentServiceNameAzureRM: 'Pay-As-You-Go(939d0063-f302-41c3-a37b-d6a44a4eb692)'
+              environmentServiceNameAzureRM: 'Free Trial(27871e81-babf-420a-b707-448624c2aa82)'
           - task: TerraformTaskV3@3
             displayName: Apply
             inputs:
               provider: 'azurerm'
               command: 'apply'
               workingDirectory: '$(System.DefaultWorkingDirectory)\Automation\Terraform'
-              environmentServiceNameAzureRM: 'Pay-As-You-Go(939d0063-f302-41c3-a37b-d6a44a4eb692)'
+              environmentServiceNameAzureRM: 'Free Trial(27871e81-babf-420a-b707-448624c2aa82)'
