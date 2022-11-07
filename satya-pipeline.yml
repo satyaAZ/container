@@ -31,3 +31,26 @@ stages:
               PathtoPublish: '$(build.artifactstagingdirectory)'
               ArtifactName: 'drop'
               publishLocation: 'Container'
+  - stage: 
+    displayName: Infrastructure-Provisioning
+    jobs:
+      - job:
+        displayName: Terraform
+        steps:
+           - task: TerraformTaskV3@3
+             displayName: Init
+             inputs:
+               provider: 'azurerm'
+               command: 'init'
+           - task: TerraformTaskV3@3
+             displayName: Plan
+             inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              backendServiceArm: 'Pay-As-You-Go(eca7462f-847f-4132-a878-110a6e0bb87a)'
+           - task: TerraformTaskV3@3
+             displayName: Apply
+             inputs:
+              provider: 'azurerm'
+              command: 'apply'
+              environmentServiceNameAzureRM: 'Pay-As-You-Go(eca7462f-847f-4132-a878-110a6e0bb87a)'
