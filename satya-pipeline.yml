@@ -45,6 +45,7 @@ stages:
              inputs:
                provider: 'azurerm'
                command: 'init'
+               commandOptions: '-input=false -backend=false'
               
            - task: TerraformTaskV3@3
              displayName: plan1
