@@ -43,7 +43,7 @@ stages:
                provider: 'azurerm'
                command: 'init'
                workingDirectory: 'C:\Users\satya\Desktop\Azure'
-               environmentServiceNameAzureRM: 'Pay-As-You-Go(eca7462f-847f-4132-a878-110a6e0bb87a)'
+              
            - task: TerraformTaskV3@3
              displayName: plan1
              inputs:
