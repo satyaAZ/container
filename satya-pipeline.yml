@@ -42,7 +42,7 @@ stages:
              inputs:
                provider: 'azurerm'
                command: 'init'
-               workingDirectory: 'C:\Users\satya\Desktop\Azure'
+               workingDirectory: '$(System.DefaultWorkingDirectory)\Azure'
               
            - task: TerraformTaskV3@3
              displayName: plan1
