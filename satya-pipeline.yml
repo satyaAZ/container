@@ -1,5 +1,5 @@
 pool:
-  name: MyLocalAgentPool
+  name: SONOS
 
 variables:
   BuildConfiguration: "release"
