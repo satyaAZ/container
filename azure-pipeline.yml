@@ -30,4 +30,3 @@ stages:
             inputs:
               PathtoPublish: '$(build.artifactstagingdirectory)'
               ArtifactName: 'drop'
-              publishLocation: 'Container'
