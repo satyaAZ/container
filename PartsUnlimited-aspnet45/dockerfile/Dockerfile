@@ -1,0 +1,24 @@
+# Use the official ASP.NET Core runtime as the base image
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
+WORKDIR /app
+EXPOSE 80
+
+# Use the official SDK image for building
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+WORKDIR /src
+
+# Copy the project file
+COPY ["../src/PartsUnlimitedWebsite/PartsUnlimitedWebsite.csproj", "./"]
+
+RUN dotnet restore "PartsUnlimitedWebsite.csproj"
+COPY . .
+WORKDIR "/src"
+RUN dotnet build "PartsUnlimitedWebsite.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "PartsUnlimitedWebsite.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "PartsUnlimitedWebsite.dll"]
