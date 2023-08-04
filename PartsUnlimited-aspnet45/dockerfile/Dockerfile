@@ -8,7 +8,7 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 
 # Copy the project file
-COPY ["../src/PartsUnlimitedWebsite/PartsUnlimitedWebsite.csproj", "./"]
+COPY ["PartsUnlimited-aspnet45/src/PartsUnlimitedWebsite/PartsUnlimitedWebsite.csproj", "./"]
 
 RUN dotnet restore "PartsUnlimitedWebsite.csproj"
 COPY . .
